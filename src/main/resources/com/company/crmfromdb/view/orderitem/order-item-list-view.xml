@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://orderItemListView.title"
+      focusComponent="orderItemsDataGrid">
+    <data>
+        <collection id="orderItemsDc"
+                    class="com.company.crmfromdb.entity.OrderItem">
+            <fetchPlan extends="_base">
+                <property name="order" fetchPlan="_base"/>
+                <property name="categoryItem" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="orderItemsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from crm_OrderItem e order by e.order.number]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="orderItemsDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" wrap="true" width="100%">
+            <startSlot>
+                <button id="createButton" action="orderItemsDataGrid.createAction"/>
+                <button id="editButton" action="orderItemsDataGrid.editAction"/>
+                <button id="removeButton" action="orderItemsDataGrid.removeAction"/>
+            </startSlot>
+            <endSlot>
+                <simplePagination id="pagination" dataLoader="orderItemsDl"/>
+            </endSlot>
+        </hbox>
+        <dataGrid id="orderItemsDataGrid"
+                  width="100%"
+                  columnReorderingAllowed="true"
+                  minHeight="20em"
+                  dataContainer="orderItemsDc">
+            <actions>
+                <action id="createAction" type="list_create"/>
+                <action id="editAction" type="list_edit"/>
+                <action id="removeAction" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="order"/>
+                <column property="categoryItem"/>
+                <column property="quantity"/>
+                <column property="netPrice"/>
+                <column property="discount"/>
+                <column property="vat"/>
+                <column property="grossPrice"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectButton" action="selectAction"/>
+            <button id="discardButton" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

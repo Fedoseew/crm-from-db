@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://clientDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="clientDc"
+                  class="com.company.crmfromdb.entity.Client">
+            <fetchPlan extends="_base">
+                <property name="accountManager" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="clientDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="clientDc">
+            <textField id="nameField" property="name"/>
+            <textField id="fullNameField" property="fullName"/>
+            <textField id="typeField" property="type"/>
+            <textField id="vatNumberField" property="vatNumber"/>
+            <textField id="regNumberField" property="regNumber"/>
+            <textField id="websiteField" property="website"/>
+            <entityPicker id="accountManagerField" property="accountManager">
+                <actions>
+                    <action id="entityLookupAction" type="entity_lookup"/>
+                    <action id="entityClearAction" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <textField id="postalCodeField" property="postalCode"/>
+            <textField id="countryField" property="country"/>
+            <textField id="cityField" property="city"/>
+            <textField id="streetField" property="street"/>
+            <textField id="houseField" property="house"/>
+            <textField id="apartmentField" property="apartment"/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseButton" action="saveAction"/>
+            <button id="closeButton" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

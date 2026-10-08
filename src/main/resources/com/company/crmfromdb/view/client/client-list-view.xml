@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://clientListView.title"
+      focusComponent="clientsDataGrid">
+    <data>
+        <collection id="clientsDc"
+                    class="com.company.crmfromdb.entity.Client">
+            <fetchPlan extends="_base">
+                <property name="accountManager" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="clientsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from crm_Client e order by e.name]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="clientsDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" wrap="true" width="100%">
+            <startSlot>
+                <button id="createButton" action="clientsDataGrid.createAction"/>
+                <button id="editButton" action="clientsDataGrid.editAction"/>
+                <button id="removeButton" action="clientsDataGrid.removeAction"/>
+            </startSlot>
+            <endSlot>
+                <simplePagination id="pagination" dataLoader="clientsDl"/>
+            </endSlot>
+        </hbox>
+        <dataGrid id="clientsDataGrid"
+                  width="100%"
+                  columnReorderingAllowed="true"
+                  minHeight="20em"
+                  dataContainer="clientsDc">
+            <actions>
+                <action id="createAction" type="list_create"/>
+                <action id="editAction" type="list_edit"/>
+                <action id="removeAction" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="name"/>
+                <column property="type"/>
+                <column property="accountManager"/>
+                <column property="country"/>
+                <column property="city"/>
+                <column property="website"/>
+                <column property="vatNumber"/>
+                <column property="regNumber"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectButton" action="selectAction"/>
+            <button id="discardButton" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

@@ -3,6 +3,13 @@
 
     <menu id="application" title="msg://com.company.crmfromdb/menu.application.title" opened="true">
         <item view="crm_User.list" title="msg://com.company.crmfromdb.view.user/UserListView.title"/>
+        <item view="crm_Client.list" title="msg://com.company.crmfromdb.view.client/clientListView.title"/>
+        <item view="crm_Contact.list" title="msg://com.company.crmfromdb.view.contact/contactListView.title"/>
+        <item view="crm_Category.list" title="msg://com.company.crmfromdb.view.category/categoryListView.title"/>
+        <item view="crm_CategoryItem.list" title="msg://com.company.crmfromdb.view.categoryitem/categoryItemListView.title"/>
+        <item view="crm_Order.list" title="msg://com.company.crmfromdb.view.order/orderListView.title"/>
+        <item view="crm_OrderItem.list" title="msg://com.company.crmfromdb.view.orderitem/orderItemListView.title"/>
+        <item view="crm_Employee.list" title="msg://com.company.crmfromdb.view.employee/employeeListView.title"/>
     </menu>
 
 </menu-config>
