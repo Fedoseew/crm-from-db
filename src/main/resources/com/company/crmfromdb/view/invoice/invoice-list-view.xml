@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://invoiceListView.title"
+      focusComponent="invoicesDataGrid">
+    <data>
+        <collection id="invoicesDc"
+                    class="com.company.crmfromdb.entity.Invoice">
+            <fetchPlan extends="_base">
+                <property name="client" fetchPlan="_instance_name"/>
+                <property name="order" fetchPlan="_instance_name"/>
+            </fetchPlan>
+            <loader id="invoicesDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from crm_Invoice e order by e.date desc]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="invoicesDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" wrap="true" width="100%">
+            <endSlot>
+                <simplePagination id="pagination" dataLoader="invoicesDl"/>
+            </endSlot>
+        </hbox>
+        <dataGrid id="invoicesDataGrid"
+                  width="100%"
+                  columnReorderingAllowed="true"
+                  minHeight="20em"
+                  dataContainer="invoicesDc">
+            <columns resizable="true">
+                <column property="number"/>
+                <column property="date"/>
+                <column property="dueDate"/>
+                <column property="client"/>
+                <column property="order"/>
+                <column property="status"/>
+                <column property="subtotal"/>
+                <column property="vat"/>
+                <column property="total"/>
+            </columns>
+        </dataGrid>
+    </layout>
+</view>

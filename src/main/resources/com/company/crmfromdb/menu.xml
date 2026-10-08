@@ -9,6 +9,7 @@
         <item view="crm_CategoryItem.list" title="msg://com.company.crmfromdb.view.categoryitem/categoryItemListView.title"/>
         <item view="crm_Order.list" title="msg://com.company.crmfromdb.view.order/orderListView.title"/>
         <item view="crm_OrderItem.list" title="msg://com.company.crmfromdb.view.orderitem/orderItemListView.title"/>
+        <item view="crm_Invoice.list" title="msg://com.company.crmfromdb.view.invoice/invoiceListView.title"/>
         <item view="crm_Employee.list" title="msg://com.company.crmfromdb.view.employee/employeeListView.title"/>
     </menu>
 
