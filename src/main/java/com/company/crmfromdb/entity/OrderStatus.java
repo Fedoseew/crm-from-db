@@ -1,0 +1,33 @@
+package com.company.crmfromdb.entity;
+
+import io.jmix.core.metamodel.datatype.EnumClass;
+import org.jspecify.annotations.Nullable;
+
+public enum OrderStatus implements EnumClass<Integer> {
+
+    NEW(10),
+    ACCEPTED(20),
+    IN_PROGRESS(30),
+    DONE(40);
+
+    private final Integer id;
+
+    OrderStatus(Integer id) {
+        this.id = id;
+    }
+
+    @Override
+    public Integer getId() {
+        return id;
+    }
+
+    @Nullable
+    public static OrderStatus fromId(Integer id) {
+        for (OrderStatus at : OrderStatus.values()) {
+            if (at.getId().equals(id)) {
+                return at;
+            }
+        }
+        return null;
+    }
+}
