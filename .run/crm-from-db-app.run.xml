@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="crm-from-db app" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="crm-from-db.main" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.company.crmfromdb.CrmFromDbApplication" />
+    <shortenClasspath name="ARGS_FILE" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

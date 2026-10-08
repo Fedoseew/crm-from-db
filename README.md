@@ -11,11 +11,11 @@ docker compose -f db/docker-compose.yml up -d   # PostgreSQL 17: localhost:5434,
 ./gradlew bootRun                               # http://localhost:8080, вход admin / admin
 ```
 
-В Jmix Studio то же делает run-конфигурация «Crm-from-db Jmix Application». Дамп `db/crm.sql` загружается только при первом старте, в пустой том. Вернуть базу к дампу: `docker compose -f db/docker-compose.yml down -v`, затем снова `up -d`. `./gradlew test` работает с отдельной базой `crm_test` из того же дампа, поэтому база должна быть запущена.
+В IntelliJ IDEA Ultimate то же делают run-конфигурации из `.run/`: «crm-from-db database» (Docker Compose, сервис `db` из `db/docker-compose.yml`) и «crm-from-db app» (Spring Boot, `CrmFromDbApplication`, порт 8080); сначала база, потом приложение. Дамп `db/crm.sql` загружается только при первом старте, в пустой том. Вернуть базу к дампу: `docker compose -f db/docker-compose.yml down -v`, затем снова `up -d`. `./gradlew test` работает с отдельной базой `crm_test` из того же дампа, поэтому база должна быть запущена.
 
 | Ветка | Что добавляет |
 |---|---|
-| `b/01-empty` (= `main`) | Проект из `jmix new crm-from-db --non-interactive` (Jmix 3.0.3, Project id `crm`), PostgreSQL вместо HSQLDB, `db/` с дампом CRM |
+| `b/01-empty` (= `main`) | Проект из `jmix new crm-from-db --non-interactive` (Jmix 3.0.3, Project id `crm`), PostgreSQL вместо HSQLDB, `db/` с дампом CRM, run-конфигурации IntelliJ в `.run/` |
 | `b/02-model` | JPA-сущности для таблиц CRM, как их строит Studio Generate Model from Database: Client, Contact, Category, CategoryItem, Order, OrderItem, Invoice и Employee (таблица `USER_`), перечисления OrderStatus и InvoiceStatus; для существующих таблиц Liquibase не генерируется |
 | `b/03-views` | Списки и карточки с пунктами меню для всех сущностей, кроме Invoice |
 | `b/04-role` | Атрибут `rating` у Client с Liquibase-changelog, поле на экранах, ресурсная роль «Manager: Clients read-only» |
@@ -34,11 +34,11 @@ docker compose -f db/docker-compose.yml up -d   # PostgreSQL 17: localhost:5434,
 ./gradlew bootRun                               # http://localhost:8080, log in as admin / admin
 ```
 
-In Jmix Studio, use the "Crm-from-db Jmix Application" run configuration. `db/crm.sql` is loaded only on the first start, into an empty volume. To reset the database to the dump, run `docker compose -f db/docker-compose.yml down -v`, then `up -d` again. `./gradlew test` uses a separate `crm_test` database loaded from the same dump, so the database must be running.
+In IntelliJ IDEA Ultimate, the run configurations in `.run/` do the same: "crm-from-db database" (Docker Compose, service `db` of `db/docker-compose.yml`) and "crm-from-db app" (Spring Boot, `CrmFromDbApplication`, port 8080); start the database first. `db/crm.sql` is loaded only on the first start, into an empty volume. To reset the database to the dump, run `docker compose -f db/docker-compose.yml down -v`, then `up -d` again. `./gradlew test` uses a separate `crm_test` database loaded from the same dump, so the database must be running.
 
 | Branch | Adds |
 |---|---|
-| `b/01-empty` (= `main`) | The project from `jmix new crm-from-db --non-interactive` (Jmix 3.0.3, Project id `crm`), PostgreSQL instead of HSQLDB, `db/` with the CRM dump |
+| `b/01-empty` (= `main`) | The project from `jmix new crm-from-db --non-interactive` (Jmix 3.0.3, Project id `crm`), PostgreSQL instead of HSQLDB, `db/` with the CRM dump, IntelliJ run configurations in `.run/` |
 | `b/02-model` | JPA entities for the CRM tables as Studio's Generate Model from Database builds them: Client, Contact, Category, CategoryItem, Order, OrderItem, Invoice and Employee (table `USER_`), enums OrderStatus and InvoiceStatus; no Liquibase for the existing tables |
 | `b/03-views` | List and detail views with menu items for every entity except Invoice |
 | `b/04-role` | A `rating` attribute on Client with a Liquibase changelog, the field in the views, the resource role "Manager: Clients read-only" |
