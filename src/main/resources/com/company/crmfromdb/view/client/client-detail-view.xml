@@ -38,6 +38,7 @@
             <textField id="streetField" property="street"/>
             <textField id="houseField" property="house"/>
             <textField id="apartmentField" property="apartment"/>
+            <integerField id="ratingField" property="rating"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseButton" action="saveAction"/>

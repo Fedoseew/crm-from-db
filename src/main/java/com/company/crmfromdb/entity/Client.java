@@ -24,7 +24,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-@DdlGeneration(value = DdlGeneration.DbScriptGenerationMode.DISABLED)
+@DdlGeneration(value = DdlGeneration.DbScriptGenerationMode.CREATE_ONLY)
 @JmixEntity
 @Table(name = "CLIENT", indexes = {
         @Index(name = "IDX_CLIENT_ACCOUNT_MANAGER", columnList = "ACCOUNT_MANAGER_ID")
@@ -111,6 +111,9 @@ public class Client {
 
     @Column(name = "APARTMENT")
     private String apartment;
+
+    @Column(name = "RATING")
+    private Integer rating;
 
     public UUID getId() {
         return id;
@@ -278,5 +281,13 @@ public class Client {
 
     public void setApartment(String apartment) {
         this.apartment = apartment;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 }

@@ -60,6 +60,7 @@
                 <column property="website"/>
                 <column property="vatNumber"/>
                 <column property="regNumber"/>
+                <column property="rating"/>
             </columns>
         </dataGrid>
         <hbox id="lookupActions" visible="false">
