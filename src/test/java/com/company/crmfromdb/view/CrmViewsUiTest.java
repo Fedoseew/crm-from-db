@@ -11,8 +11,10 @@ import com.company.crmfromdb.view.order.OrderDetailView;
 import com.company.crmfromdb.view.order.OrderListView;
 import com.company.crmfromdb.view.orderitem.OrderItemListView;
 import io.jmix.flowui.ViewNavigators;
+import io.jmix.flowui.component.ListDataComponent;
 import io.jmix.flowui.component.grid.DataGrid;
 import io.jmix.flowui.component.textfield.TypedTextField;
+import io.jmix.flowui.data.grid.DataGridItems;
 import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.testassist.FlowuiTestAssistConfiguration;
 import io.jmix.flowui.testassist.UiTest;
@@ -66,7 +68,7 @@ public class CrmViewsUiTest {
     private void assertGridHasRows(Class<? extends View<?>> viewClass, String gridId) {
         viewNavigators.view(UiTestUtils.getCurrentView(), viewClass).navigate();
         View<?> view = UiTestUtils.getCurrentView();
-        DataGrid<?> grid = UiTestUtils.getComponent(view, gridId);
-        assertThat(grid.getItems().getItems()).as(gridId).isNotEmpty();
+        ListDataComponent<?> grid = UiTestUtils.getComponent(view, gridId); // dataGrid or treeDataGrid
+        assertThat(((DataGridItems<?>) grid.getItems()).getItems()).as(gridId).isNotEmpty();
     }
 }
