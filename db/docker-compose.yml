@@ -1,0 +1,27 @@
+# PostgreSQL 17 with the CRM schema and demo data (db/crm.sql) for crm-from-db.
+# The dump is loaded only on the first start, into an empty volume.
+#   start:            docker compose -f db/docker-compose.yml up -d
+#   reset to the dump: docker compose -f db/docker-compose.yml down -v && docker compose -f db/docker-compose.yml up -d
+name: crm-from-db
+
+services:
+  db:
+    image: postgres:17.11
+    environment:
+      POSTGRES_DB: crm
+      POSTGRES_USER: crm
+      POSTGRES_PASSWORD: crm
+    ports:
+      - "5434:5432"
+    volumes:
+      - crm-data:/var/lib/postgresql/data
+      - ./crm.sql:/docker-entrypoint-initdb.d/10-crm.sql:ro
+      - ./create-test-db.sh:/docker-entrypoint-initdb.d/20-create-test-db.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U crm -d crm"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  crm-data:
