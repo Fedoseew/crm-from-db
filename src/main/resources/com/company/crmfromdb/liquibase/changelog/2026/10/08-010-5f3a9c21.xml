@@ -4,6 +4,12 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
                    objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
     <changeSet id="1" author="crm-from-db">
+        <validCheckSum>ANY</validCheckSum>
+        <preConditions>
+            <not>
+                <columnExists tableName="CLIENT" columnName="RATING"/>
+            </not>
+        </preConditions>
         <addColumn tableName="CLIENT">
             <column name="RATING" type="INT"/>
         </addColumn>
