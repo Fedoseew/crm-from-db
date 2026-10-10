@@ -11,7 +11,7 @@ docker compose -f db/docker-compose.yml up -d   # PostgreSQL 17: localhost:5434,
 ./gradlew bootRun                               # http://localhost:8080, вход admin / admin
 ```
 
-В IntelliJ IDEA Ultimate то же делают run-конфигурации из `.run/`: «crm-from-db database» (Docker Compose, сервис `db` из `db/docker-compose.yml`) и «crm-from-db app» (Spring Boot, `CrmFromDbApplication`, порт 8080); сначала база, потом приложение. Дамп `db/crm.sql` загружается только при первом старте, в пустой том. Вернуть базу к дампу: `docker compose -f db/docker-compose.yml down -v`, затем снова `up -d`. `./gradlew test` работает с отдельной базой `crm_test` из того же дампа, поэтому база должна быть запущена.
+В IntelliJ IDEA Ultimate то же делают run-конфигурации из `.run/`. «crm-from-db app» (Spring Boot, `CrmFromDbApplication`, порт 8080) перед стартом запускает «crm-from-db database» (`db/db.sh up`): она поднимает сервис `db` из `db/docker-compose.yml`, ждёт готовности и проверяет, что все 8 таблиц CRM на месте. Дамп `db/crm.sql` загружается только при первом старте, в пустой том. Вернуть базу к дампу: «crm-from-db database reset» (`db/db.sh reset`, приложение сначала остановить) удаляет том со всеми данными и загружает дамп заново; без IDE — `docker compose -f db/docker-compose.yml down -v`, затем снова `up -d`. `./gradlew test` работает с отдельной базой `crm_test` из того же дампа, поэтому база должна быть запущена.
 
 | Ветка | Что добавляет |
 |---|---|
@@ -34,7 +34,7 @@ docker compose -f db/docker-compose.yml up -d   # PostgreSQL 17: localhost:5434,
 ./gradlew bootRun                               # http://localhost:8080, log in as admin / admin
 ```
 
-In IntelliJ IDEA Ultimate, the run configurations in `.run/` do the same: "crm-from-db database" (Docker Compose, service `db` of `db/docker-compose.yml`) and "crm-from-db app" (Spring Boot, `CrmFromDbApplication`, port 8080); start the database first. `db/crm.sql` is loaded only on the first start, into an empty volume. To reset the database to the dump, run `docker compose -f db/docker-compose.yml down -v`, then `up -d` again. `./gradlew test` uses a separate `crm_test` database loaded from the same dump, so the database must be running.
+In IntelliJ IDEA Ultimate, the run configurations in `.run/` do the same. "crm-from-db app" (Spring Boot, `CrmFromDbApplication`, port 8080) first runs "crm-from-db database" (`db/db.sh up`): it starts the service `db` of `db/docker-compose.yml`, waits until it is healthy and checks that all 8 CRM tables are there. `db/crm.sql` is loaded only on the first start, into an empty volume. To reset the database to the dump, run "crm-from-db database reset" (`db/db.sh reset`; stop the app first): it deletes the volume with all its data and loads the dump again. Without the IDE: `docker compose -f db/docker-compose.yml down -v`, then `up -d` again. `./gradlew test` uses a separate `crm_test` database loaded from the same dump, so the database must be running.
 
 | Branch | Adds |
 |---|---|
