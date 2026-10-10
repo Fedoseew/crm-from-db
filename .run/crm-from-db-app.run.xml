@@ -1,11 +1,14 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="crm-from-db app" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+  <configuration default="false" name="crm-from-db app" type="JmixRunApplication">
+    <option name="MAIN_CLASS_NAME" value="com.company.crmfromdb.CrmFromDbApplication" />
     <module name="crm-from-db.main" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="com.company.crmfromdb.CrmFromDbApplication" />
     <shortenClasspath name="ARGS_FILE" />
     <method v="2">
       <option name="RunConfigurationTask" enabled="true" run_configuration_name="crm-from-db database" run_configuration_type="ShConfigurationType" />
-      <option name="Make" enabled="true" />
+      <option name="JmixCleanConf" enabled="false" />
+      <option name="JmixCheckIncludes" enabled="false" />
+      <option name="JmixSyncDb" enabled="false" />
+      <option name="JmixAssemble" enabled="false" />
     </method>
   </configuration>
 </component>
